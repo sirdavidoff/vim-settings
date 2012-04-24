@@ -4,6 +4,7 @@ if filereadable(expand("~/.vimrc.pre"))
 endif
 
 call pathogen#infect()
+call pathogen#helptags()
 
 " Stuff added by David
 " Change the leader to comma and show it in the bottom-right when it's pressed
@@ -11,8 +12,11 @@ color kellys
 set guifont=Menlo:h17
 
 let mapleader = ","
-set showcmd
+
+nmap <leader>w :bw<CR>
+
 nmap <silent> <c-n> :NERDTreeToggle<CR>
+nmap <silent> <c-b> :TagbarToggle<CR>
 " Actionscript syntax highlighting
 au BufRead,BufNewFile *.as set filetype=actionscript
 " End stuff
@@ -28,6 +32,10 @@ nmap <Leader>, :bw
 " Return opens a new line, even when in command mode
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
+
+let delimitMate_expand_cr = 1
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako,tpl let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,tpl source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 set nocompatible
 
@@ -69,7 +77,8 @@ let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 map <Leader>n :NERDTreeToggle<CR>
 
 " Command-T configuration
-let g:CommandTMaxHeight=20
+let g:CommandTMaxHeight=10
+let g:CommandTMinHeight=10
 
 " ZoomWin configuration
 map <Leader><Leader> :ZoomWin<CR>
@@ -157,9 +166,6 @@ let g:gist_open_browser_after_post = 1
 set modeline
 set modelines=10
 
-" Default color scheme
-" color desert
-
 " Directories for swp files
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
@@ -175,6 +181,7 @@ runtime! macros/matchit.vim
 
 " Show (partial) command in the status line
 set showcmd
+
 
 if has("gui_running")
   " Automatically resize splits when resizing MacVim window
