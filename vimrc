@@ -13,7 +13,15 @@ set guifont=Menlo:h17
 
 let mapleader = ","
 
+" Visually select the last changed text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]''`]`'
+" Use this alternative to just select the last pasted text
+"nnoremap gp `[v`]
+
 nmap <leader>w :bw<CR>
+
+nmap R <Plug>yankstack_substitute_older_paste
+nmap <M-p> <Plug>yankstack_substitute_newer_paste
 
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 nmap <silent> <c-b> :TagbarToggle<CR>

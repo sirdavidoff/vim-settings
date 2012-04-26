@@ -7,6 +7,7 @@ if has("gui_macvim")
   " Fullscreen takes up entire screen
   set fuoptions=maxhorz,maxvert
 
+  set macmeta
   set lines=49
   set columns=135
   "This means you can open files with command-T without the window splitting
@@ -19,6 +20,10 @@ if has("gui_macvim")
   macmenu &File.New\ Tab key=<D-T>
   map <D-t> :CommandT<CR>
   imap <D-t> <Esc>:CommandT<CR>
+
+  " Command-R for recently opened files
+  map <D-r> :MRU<CR>
+  imap <D-r> <Esc>:MRU<CR>
 
   " Command-Return for fullscreen
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
