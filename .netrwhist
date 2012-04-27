@@ -1,7 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/david/dev/htdocs/haedat'
 let g:netrw_dirhist_2='/Users/david/dev/fo/FundingOptions'
 let g:netrw_dirhist_3='/Users/david/dev/htdocs/haedat'
 let g:netrw_dirhist_4='/Users/david/dev/fo/FundingOptions'
 let g:netrw_dirhist_5='/Users/david/dev/htdocs/haedat'
+let g:netrw_dirhist_6='/Users/david/dev/vokkit/flash'
+let g:netrw_dirhist_7='/Users/david/dev/fo/FundingOptions'
+let g:netrw_dirhist_8='/Users/david/dev/vokkit/web'

@@ -15,6 +15,10 @@ if has("gui_macvim")
   map <C-Tab> :bnext<cr>
   map <C-S-Tab> :bprevious<cr>
   "noremap <c-tab> :tabnext<cr>
+  
+  " Command-J and -K move up/down 5 lines
+  map <D-j> 5j
+  map <D-k> 5k
 
   " Command-T for CommandT
   macmenu &File.New\ Tab key=<D-T>
