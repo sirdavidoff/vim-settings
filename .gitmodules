@@ -49,3 +49,9 @@
 [submodule "bundle/actionscript"]
 	path = bundle/actionscript
 	url = https://github.com/jeroenbourgois/vim-actionscript.git
+[submodule "bundle/unimpaired"]
+	path = bundle/unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = https://github.com/mileszs/ack.vim.git
