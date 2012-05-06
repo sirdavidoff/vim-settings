@@ -10,8 +10,8 @@ if has("gui_macvim")
   set macmeta
   set lines=49
   set columns=135
+  
   "This means you can open files with command-T without the window splitting
-  set hidden
   map <C-Tab> :bnext<cr>
   map <C-S-Tab> :bprevious<cr>
   "noremap <c-tab> :tabnext<cr>
@@ -22,7 +22,7 @@ if has("gui_macvim")
 
   " Command-T for CommandT
   macmenu &File.New\ Tab key=<D-T>
-  map <D-t> :CommandT<CR>
+  "map <D-t> :CommandT<CR> " Commented out so I get used to using just t
   imap <D-t> <Esc>:CommandT<CR>
 
   " Command-R for recently opened files
@@ -40,12 +40,16 @@ if has("gui_macvim")
 
   " Command-/ to toggle comments
   map <D-/> <plug>NERDCommenterToggle<CR>
-  imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
-
+  imap <D-/> <Esc><plug>NERDCommenterToggle<CR>
 
   " Command-][ to increase/decrease indentation
   vmap <D-]> >gv
   vmap <D-[> <gv
+
+  " Save all open buffers, switch to Chrome Canary and reload it
+  nnoremap <leader>r :wa<CR> <bar> :RRB<CR>
+  let g:RefreshRunningBrowserReturnFocus = 0
+  let g:RefreshRunningBrowserDefault = 'chromecanary'
 
   " Map Command-# to switch tabs
   map  <D-0> 0gt
@@ -219,6 +223,8 @@ function ChangeDirectory(dir, ...)
   let stay = exists("a:1") ? a:1 : 1
 
   NERDTree
+  " Hide NERDTree
+  NERDTreeToggle
 
   if !stay
     wincmd p
@@ -248,6 +254,8 @@ function Mkdir(file)
   call s:UpdateNERDTree()
 endfunction
 
+" When you open a file, this cd's to that file's directory
+" COMMENTED OUT FOR NOW (see the # below)
 function Edit(file)
   if exists("b:NERDTreeRoot")
     wincmd p
@@ -261,7 +269,7 @@ ruby << RUBY
   home        = pwd == File.expand_path("~")
 
   if home || Regexp.new("^" + Regexp.escape(pwd)) !~ destination
-    VIM.command(%{call ChangeDirectory(fnamemodify(a:file, ":h"), 0)})
+    #VIM.command(%{call ChangeDirectory(fnamemodify(a:file, ":h"), 0)})
   end
 RUBY
 endfunction

@@ -68,6 +68,7 @@ if has("gui_running")
 	hi Underlined	guifg=#e1e0e5	guibg=#2a2b2f	gui=underline
 	hi Visual		guifg=#2a2b2f	guibg=#e1e0e5	gui=none
 	hi Wildmenu		guifg=#62acce	guibg=#2a2b2f	gui=bold
+  hi EasyMotionTarget guifg=#000000 guibg=#fffabc gui=none
 else
 	if &t_Co == 256
 		hi Comment		ctermfg=239	ctermbg=235	cterm=none
@@ -86,11 +87,11 @@ else
 		hi PmenuSel		ctermfg=235	ctermbg=81	cterm=bold
 		hi PmenuSbar	ctermfg=235	ctermbg=235	cterm=none
 		hi PmenuThumb	ctermfg=235	ctermbg=81	cterm=none
+		hi StatusLine 	ctermfg=235	ctermbg=81	cterm=bold
 		hi PreProc		ctermfg=184	ctermbg=235	cterm=none 
 		hi Search		ctermfg=235	ctermbg=254	cterm=none
 		hi Special		ctermfg=74	ctermbg=235	cterm=none
 		hi Statement	ctermfg=81	ctermbg=235	cterm=none
-		hi StatusLine 	ctermfg=235	ctermbg=81	cterm=bold
 		hi StatusLineNC ctermfg=235	ctermbg=254	cterm=none
 		hi Todo 		ctermfg=254	ctermbg=124	cterm=bold
 		hi Type 		ctermfg=178	ctermbg=234	cterm=none

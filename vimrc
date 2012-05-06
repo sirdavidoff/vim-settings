@@ -6,40 +6,129 @@ endif
 call pathogen#infect()
 call pathogen#helptags()
 
-" Stuff added by David
+" Need to call this to make sure any keymaps override yankstack's craziness
+call yankstack#setup()
+
 " Change the leader to comma and show it in the bottom-right when it's pressed
 color kellys
 set guifont=Menlo:h17
 
 let mapleader = ","
 
+" Swap colon and semicolon
+"nnoremap : ;
+nnoremap ; :
+
+" When pasting, auto-indent to match surroundings and move to the end of the
+" pasted text
+nnoremap p ]p']
+nnoremap P ]P']
+
+" Y yanks to the end of the line, rather than yanking the whole line
+nnoremap Y y$
+" 'j and 'k go to the beginning and end of just-selected or just-pasted text
+nnoremap 'j '[
+nnoremap 'k ']
+" 0 goes to the first non-whitespace part of the line, rather than the very
+" beginning
+nnoremap 0 ^
+nnoremap ^ 0
+" Uppercase U is redo
+nnoremap U <C-r>
+" Only have to press <> once to change line indent
+nnoremap < <<
+nnoremap > >>
+" c<space> toggles comments
+nnoremap c<space> <plug>NERDCommenterToggle<CR>
+
+" Join lines above and below with ,j and ,k
+nnoremap <leader>j J
+nnoremap <leader>k kJ
+
+" Move up and down a screen with J and K
+nnoremap J <C-f>
+nnoremap K <C-b>
+
 " Visually select the last changed text
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]''`]`'
-" Use this alternative to just select the last pasted text
-"nnoremap gp `[v`]
+nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
 
-nmap <leader>w :bw<CR>
+" Unimpaired configuration
+" Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+nmap <C-k> [e
+nmap <C-j> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
+nnoremap <leader>w :bw<CR> " Close current buffer
+nnoremap <leader>a :%bdelete<CR> " Close all buffers
+
+" R replaces the last pasted text with whatever was previously in the yank
+" buffer
 nmap R <Plug>yankstack_substitute_older_paste
 nmap <M-p> <Plug>yankstack_substitute_newer_paste
 
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 nmap <silent> <c-b> :TagbarToggle<CR>
-" Actionscript syntax highlighting
-au BufRead,BufNewFile *.as set filetype=actionscript
-" End stuff
 
-" Pressing space inserts one char only
-nmap <Space> i_<Esc>r
+" Pressing comma inserts one char only
+nnoremap <space> i_<Esc>r
 " Ctrl-L moves to the end of the line in insert mode
 inoremap <C-l> <C-o>A
 " ;; inserts a semicolon at the end of the line in insert mode
 inoremap ;; <C-o>A;
-" ,, closes the current buffer
-nmap <Leader>, :bw
+
 " Return opens a new line, even when in command mode
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
+
+" LustyJuggler configuration
+let g:LustyExplorerSuppressRubyWarning = 1
+let g:LustyJugglerAltTabMode = 1
+nnoremap s :LustyJuggler<CR>
+set hidden
+
+" NERDTree configuration
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
+
+" Command-T configuration
+let g:CommandTMaxHeight=10
+let g:CommandTMinHeight=10
+nnoremap t :CommandT<CR>
+
+" EasyMotion configuration
+nnoremap f :call EasyMotion#WB(0, 0)<CR>
+nnoremap F :call EasyMotion#WB(0, 1)<CR>
+nnoremap gf f
+let g:EasyMotion_keys = 'abcdeghiklmnopqrstuvwxyzjf;'
+
+" ZoomWin configuration
+"map <Leader><Leader> :ZoomWin<CR>
+
+" CTags
+map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+map <C-\> :tnext<CR>
+
+" Gundo configuration
+nmap <F5> :GundoToggle<CR>
+imap <F5> <ESC>:GundoToggle<CR>
+
+" Opens an edit command with the path of the currently edited file filled in
+" Normal mode: <Leader>e
+map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Opens a tab edit command with the path of the currently edited file filled in
+" Normal mode: <Leader>t
+map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Inserts the path of the currently edited file into a command
+" Command mode: Ctrl+P
+cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 let delimitMate_expand_cr = 1
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako,tpl let b:closetag_html_style=1
@@ -68,6 +157,9 @@ set incsearch
 set ignorecase
 set smartcase
 
+" Show (partial) command in the status line
+set showcmd
+
 " Tab completion
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
@@ -79,25 +171,6 @@ set laststatus=2
 " equalalways behavior to be triggered the next time CommandT is used.
 " This is likely a bludgeon to solve some other issue, but it works
 set noequalalways
-
-" NERDTree configuration
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
-
-" Command-T configuration
-let g:CommandTMaxHeight=10
-let g:CommandTMinHeight=10
-
-" ZoomWin configuration
-map <Leader><Leader> :ZoomWin<CR>
-
-" CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <C-\> :tnext<CR>
-
-" Gundo configuration
-nmap <F5> :GundoToggle<CR>
-imap <F5> <ESC>:GundoToggle<CR>
 
 " Remember last location in file
 if has("autocmd")
@@ -127,35 +200,16 @@ au BufNewFile,BufRead *.json set ft=javascript
 
 au BufRead,BufNewFile *.txt call s:setupWrapping()
 
+" Actionscript syntax highlighting
+au BufRead,BufNewFile *.as set filetype=actionscript
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 
-" Opens an edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>e
-map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Inserts the path of the currently edited file into a command
-" Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-
-" Unimpaired configuration
-" Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-nmap <C-k> [e
-nmap <C-j> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-vmap <C-k> [egv
-vmap <C-j> ]egv
 
 " Enable syntastic syntax checking
 let g:syntastic_enable_signs=1
@@ -187,9 +241,13 @@ let macvim_hig_shift_movement = 1
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
 
-" Show (partial) command in the status line
-set showcmd
-
+" Automatically reload .vimrc, etc every time it is saved
+command RC Edit ~/.vim/vimrc
+command GRC Edit ~/.vim/gvimrc
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 if has("gui_running")
   " Automatically resize splits when resizing MacVim window
