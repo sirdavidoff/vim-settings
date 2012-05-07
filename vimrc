@@ -49,6 +49,9 @@ nnoremap <leader>k kJ
 nnoremap J <C-f>
 nnoremap K <C-b>
 
+" Help key is ,h
+nnoremap <leader>h K
+
 " Visually select the last changed text
 nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
 

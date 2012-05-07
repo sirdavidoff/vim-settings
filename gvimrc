@@ -51,6 +51,9 @@ if has("gui_macvim")
   let g:RefreshRunningBrowserReturnFocus = 0
   let g:RefreshRunningBrowserDefault = 'chromecanary'
 
+  " Command-e executes sparkup
+  let g:sparkupExecuteMapping = '<D-e>'
+
   " Map Command-# to switch tabs
   map  <D-0> 0gt
   imap <D-0> <Esc>0gt
