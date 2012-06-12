@@ -20,10 +20,15 @@ if has("gui_macvim")
   map <D-j> 5j
   map <D-k> 5k
 
+  " Option-j and k bubble lines
+  nmap <m-k> [e
+  nmap <m-j> ]e
+  vmap <M-j> ]egv
   " Command-T for CommandT
-  macmenu &File.New\ Tab key=<D-T>
+  "macmenu &File.New\ Tab key=<D-T>
   "map <D-t> :CommandT<CR> " Commented out so I get used to using just t
-  imap <D-t> <Esc>:CommandT<CR>
+  vmap <M-k> [egv
+  "imap <D-t> <Esc>:CommandT<CR>
 
   " Command-R for recently opened files
   map <D-r> :MRU<CR>
@@ -39,9 +44,9 @@ if has("gui_macvim")
   map <D-e> :call StartTerm()<CR>
 
   " Command-/ to toggle comments
-  map <D-/> <plug>NERDCommenterToggle<CR>
+  map <D-/> <plug>NERDCommenterToggle<CR>dd
   imap <D-/> <Esc><plug>NERDCommenterToggle<CR>
-
+  
   " Command-][ to increase/decrease indentation
   vmap <D-]> >gv
   vmap <D-[> <gv
