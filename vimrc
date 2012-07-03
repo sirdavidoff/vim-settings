@@ -11,6 +11,11 @@ set guifont=Menlo:h17
 
 let mapleader = ","
 
+" jk in insert mode switches to normal mode
+inoremap jk <Esc>
+" This following line disables normal escape. Doesn't seem to work, though
+inoremap <Esc> <nop>
+
 " Swap colon and semicolon
 nnoremap : ;
 nnoremap ; :
@@ -139,9 +144,13 @@ nnoremap gt t
 nnoremap gT T
 let g:EasyMotion_keys = 'abcdeghiklmnopqrstuvwxyzjf;'
 
-" Pressing <esc> when the omnicomplete menu is shown doesn't exit insert mode
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+" For editing the snippet files associated with the current file
+nnoremap <leader>s :call snipMate#OpenSnippetFiles()<CR>
+
+" Command-H and Command-K move the parameter under the cursor
+" backwards/forwards
+nnoremap <silent> <C-l> :call SwapParams("forwards")<CR>
+nnoremap <silent> <C-h> :call SwapParams("backwards")<CR>
 
 "" ZoomWin configuration
 ""map <Leader><Leader> :ZoomWin<CR>
@@ -331,3 +340,4 @@ command FOweb cd ~/dev/fo/design/foweb
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
